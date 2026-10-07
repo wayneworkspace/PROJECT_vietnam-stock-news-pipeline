@@ -6,14 +6,14 @@ A small, idempotent data pipeline that collects news and daily prices for Vietna
 
 | Category | Technologies |
 |---|---|
-| **Programming** | <img src="https://skillicons.dev/icons?i=py" alt="Python" height="24" /> Python &nbsp;•&nbsp; <img src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_sql.svg" alt="SQL" height="24" /> SQL |
-| **Data Storage** | <img src="https://skillicons.dev/icons?i=sqlite" alt="SQLite" height="24" /> SQLite (Bronze) &nbsp;•&nbsp; DuckDB (Silver, Gold) |
-| **Data Processing** | <img src="https://skillicons.dev/icons?i=pandas" alt="pandas" height="24" /> pandas &nbsp;•&nbsp; Requests &nbsp;•&nbsp; BeautifulSoup (lxml) |
-| **API** | <img src="https://skillicons.dev/icons?i=fastapi" alt="FastAPI" height="24" /> FastAPI (Uvicorn) |
-| **ETL & Orchestration** | <img src="https://raw.githubusercontent.com/gilbarbara/logos/main/logos/n8n-icon.svg" alt="n8n" height="24" /> n8n (cron schedule) |
+| **Programming** | <img src="assets/icon-python.png" alt="Python" height="24" /> Python &nbsp;•&nbsp; <img src="assets/icon-sql.png" alt="SQL" height="24" /> SQL |
+| **Data Storage** | <img src="assets/icon-sqlite.png" alt="SQLite" height="24" /> SQLite (Bronze) &nbsp;•&nbsp; <img src="assets/icon-duckdb.png" alt="DuckDB" height="24" /> DuckDB (Silver, Gold) |
+| **Data Processing** | <img src="assets/icon-pandas.png" alt="pandas" height="24" /> pandas &nbsp;•&nbsp; Requests &nbsp;•&nbsp; BeautifulSoup (lxml) |
+| **API** | <img src="assets/icon-fastapi.png" alt="FastAPI" height="24" /> FastAPI (Uvicorn) |
+| **ETL & Orchestration** | <img src="assets/icon-n8n.png" alt="n8n" height="24" /> n8n (cron schedule) |
 | **Data Modeling** | Medallion (Bronze / Silver / Gold) &nbsp;•&nbsp; Star Schema &nbsp;•&nbsp; OLTP + OLAP &nbsp;•&nbsp; Idempotent rebuilds |
-| **DevOps** | <img src="https://skillicons.dev/icons?i=docker" alt="Docker" height="24" /> Docker Compose |
-| **Automation & AI** | <img src="https://raw.githubusercontent.com/gilbarbara/logos/main/logos/anthropic-icon.svg" alt="Anthropic" height="24" /> Anthropic API (Claude Haiku 4.5) &nbsp;•&nbsp; <img src="https://raw.githubusercontent.com/gilbarbara/logos/main/logos/discord-icon.svg" alt="Discord" height="24" /> Discord webhook |
+| **DevOps** | <img src="assets/icon-docker.png" alt="Docker" height="24" /> Docker Compose |
+| **Automation & AI** | <img src="assets/icon-anthropic.png" alt="Anthropic" height="24" /> Anthropic API (Claude Haiku 4.5) &nbsp;•&nbsp; <img src="assets/icon-discord.png" alt="Discord" height="24" /> Discord webhook |
 
 > **Reference only, not investment advice.** Prices come from a single source (CafeF) and are not cross-checked. Sentiment is scored by an AI model from headlines only. This is a learning project.
 
@@ -27,17 +27,9 @@ A small, idempotent data pipeline that collects news and daily prices for Vietna
 
 **Data Flow** — n8n cron (07:30, Mon–Fri) → `POST /fetch-news` → `POST /fetch-prices` → `POST /enrich-news` → `POST /build-silver` → `POST /build-gold` → `POST /digest` → Discord webhook.
 
-```mermaid
-flowchart LR
-    CafeF[(CafeF)] --> Source --> Ingestion --> Bronze[(Bronze<br/>SQLite)]
-    Bronze --> SilverT[silver.py] --> Silver[(Silver<br/>DuckDB)]
-    Silver --> GoldT[gold.py] --> Gold[(Gold<br/>DuckDB)]
-    Bronze --> Enrich[enrich.py] --> Claude{{Claude Haiku 4.5}}
-    Enrich --> Bronze
-    Gold --> Digest --> Discord{{Discord}}
-    n8n((n8n cron)) -.triggers.-> Ingestion
-    n8n -.-> Digest
-```
+<p align="center">
+  <img src="assets/Architecture.png" alt="Architecture: CafeF to Source, Ingestion, Bronze, Silver, Gold, Digest and Discord, orchestrated by n8n" width="900" />
+</p>
 
 ---
 
