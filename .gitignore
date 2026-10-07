@@ -1,0 +1,15 @@
+# Bí mật
+.env
+.env.*
+!.env.example
+
+# Dữ liệu và file tạm
+workflows/
+data/
+to_delete/
+docs/
+__pycache__/
+*.pyc
+
+# Tùy chọn: bỏ dòng dưới nếu muốn commit
+CLAUDE.md

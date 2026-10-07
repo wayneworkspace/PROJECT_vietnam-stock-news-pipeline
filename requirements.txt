@@ -1,0 +1,12 @@
+# Thư viện Python cho pipeline Stock (cài vào venv trong image n8n)
+duckdb
+pandas
+pyarrow
+# vnstock  # TẠM BỎ: PyPI quarantine từ 2026-09-24, chờ kết quả rà soát
+anthropic
+requests
+python-dotenv
+fastapi
+uvicorn
+beautifulsoup4
+lxml
